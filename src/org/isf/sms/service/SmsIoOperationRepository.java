@@ -27,4 +27,9 @@ public interface SmsIoOperationRepository extends JpaRepository<Sms, Integer> {
     @Transactional
     @Query(value = "DELETE FROM SMS WHERE SMS_MOD = :mod AND SMS_MOD_ID = :id AND SMS_DATE_SENT IS NULL", nativeQuery= true)
     void deleteWhereModuleAndId(@Param("mod") String mod, @Param("id") String id);
+
+    @Modifying
+	@Transactional
+	@Query(value = "DELETE FROM SMS where SMS_ID = :id ", nativeQuery = true)
+	int deleteById(@Param("id") String id);
 }

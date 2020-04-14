@@ -13,16 +13,13 @@ public class TestSmsContext
 		
 		
 	@SuppressWarnings("unchecked")
-	public void saveAll(
-			DbJpaUtil jpa) throws OHException 
+	public void saveAll(DbJpaUtil jpa) throws OHException
     {	
 		jpa.beginTransaction();			
 		jpa.createQuery("SELECT * FROM SMS", Sms.class, false);
 		savedSms = (List<Sms>)jpa.getList();
 		jpa.commitTransaction();
-        		
-        return;
-    }
+	}
 	
 	public List<Sms> getAllSaved() throws OHException 
     {	        		
@@ -30,8 +27,7 @@ public class TestSmsContext
     }
 	    
     @SuppressWarnings("unchecked")
-    public void deleteNews(
-    		DbJpaUtil jpa) throws OHException 
+    public void deleteNews(DbJpaUtil jpa) throws OHException
     {
 		jpa.beginTransaction();			
 		jpa.createQuery("SELECT * FROM SMS", Sms.class, false);
@@ -39,15 +35,11 @@ public class TestSmsContext
 		for (Sms sms: Smss) 
 		{    		
 			int index = savedSms.indexOf(sms);
-			
-			
 			if (index == -1)
 			{				
 				jpa.remove(sms);
 			}
 	    }        
 		jpa.commitTransaction();
-		        
-        return;
-    } 
+	}
 }

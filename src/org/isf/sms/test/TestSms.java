@@ -2,6 +2,7 @@ package org.isf.sms.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -10,10 +11,9 @@ import org.isf.utils.exception.OHException;
 
 
 public class TestSms 
-{	 
-	private int smsId = 0;	
-	private Date smsDate = new GregorianCalendar(2010, 9, 8).getTime();
-	private Date smsDateSched = new GregorianCalendar(2011, 9, 8).getTime();	
+{
+	private Date smsDate = new GregorianCalendar(2010, Calendar.OCTOBER, 8).getTime();
+	private Date smsDateSched = new GregorianCalendar(2011, Calendar.OCTOBER, 8).getTime();
 	private String smsNumber = "TestNumber";	
 	private String smsText = "TestText";
 	private Date smsDateSent = null;
@@ -22,12 +22,9 @@ public class TestSms
 	private String moduleID = "TestModId";
 	 
 			
-	public Sms setup(
-			boolean usingSet) throws OHException 
+	public Sms setup(boolean usingSet) throws OHException
 	{
 		Sms sms;
-	
-				
 		if (usingSet)
 		{
 			sms = new Sms();
@@ -36,15 +33,15 @@ public class TestSms
 		else
 		{
 			// Create Sms with all parameters 
-			sms = new Sms(smsId, smsDate, smsDateSched, smsNumber, smsText, 
+			int smsId = 0;
+			sms = new Sms(smsId, smsDate, smsDateSched, smsNumber, smsText,
 							smsDateSent, smsUser, module, moduleID);
 		}
 				    	
 		return sms;
 	}
 	
-	public void _setParameters(
-			Sms sms) 
+	public void _setParameters(final Sms sms)
 	{	
 		sms.setModule(module);
 		sms.setModuleID(moduleID);
@@ -54,12 +51,9 @@ public class TestSms
 		sms.setSmsNumber(smsNumber);
 		sms.setSmsText(smsText);
 		sms.setSmsUser(smsUser);
-		
-		return;
 	}
 	
-	public void check(
-			Sms sms) 
+	public void check(Sms sms)
 	{		
     	assertEquals(module, sms.getModule());
     	assertEquals(moduleID, sms.getModuleID());
@@ -69,7 +63,5 @@ public class TestSms
     	assertEquals(smsNumber, sms.getSmsNumber());
     	assertEquals(smsText, sms.getSmsText());
     	assertEquals(smsUser, sms.getSmsUser());
-    			
-		return;
 	}
 }

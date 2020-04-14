@@ -218,8 +218,8 @@ public class TherapyManager {
 		if (note != null && !note.equals("")) {
 			sb.append(" - ").append(note);
 		}
-		if (sb.toString().length() > SmsManager.MAX_LENGHT) {
-		    return sb.toString().substring(0, SmsManager.MAX_LENGHT);
+		if (sb.toString().length() > SmsManager.MAX_LENGTH) {
+		    return sb.toString().substring(0, SmsManager.MAX_LENGTH);
 		}
 		return sb.toString();
 	}

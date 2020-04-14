@@ -15,7 +15,6 @@ import org.isf.sms.manager.SmsManager;
 import org.isf.sms.model.Sms;
 import org.isf.sms.service.SmsOperations;
 import org.isf.therapy.model.Therapy;
-import org.isf.utils.exception.OHException;
 import org.isf.utils.exception.OHServiceException;
 import org.isf.visits.model.Visit;
 import org.isf.visits.service.VisitsIoOperations;
@@ -138,8 +137,8 @@ public class VisitManager {
 		if (note != null && !note.equals("")) {
 			sb.append(" - ").append(note);
 		}
-		if (sb.toString().length() > SmsManager.MAX_LENGHT) {
-		    return sb.toString().substring(0, SmsManager.MAX_LENGHT);
+		if (sb.toString().length() > SmsManager.MAX_LENGTH) {
+		    return sb.toString().substring(0, SmsManager.MAX_LENGTH);
 		}
 		return sb.toString();
 	}

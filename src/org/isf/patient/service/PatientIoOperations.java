@@ -51,12 +51,7 @@ public class PatientIoOperations
 	 */
 	public ArrayList<Patient> getPatients() throws OHServiceException 
 	{
-		ArrayList<Patient> pPatient = null;
-		
-		
-		pPatient = new ArrayList<Patient>(repository.findAllWhereDeleted());			
-					
-		return pPatient;
+		return new ArrayList<Patient>(repository.findAllWhereDeleted());
 	}
 	
 	/**
@@ -67,12 +62,7 @@ public class PatientIoOperations
 	 */
 	public ArrayList<Patient> getPatients(Pageable pageable) throws OHServiceException 
 	{
-		ArrayList<Patient> pPatient = null;
-		
-		
-		pPatient = new ArrayList<Patient>(repository.findAllByDeletedIsNullOrDeletedEqualsOrderByName("N", pageable));
-					
-		return pPatient;
+		return new ArrayList<Patient>(repository.findAllByDeletedIsNullOrDeletedEqualsOrderByName("N", pageable));
 	}
 
 	/**
@@ -82,20 +72,15 @@ public class PatientIoOperations
 	 * @return the full list of Patients with Height and Weight
 	 * @throws OHServiceException
 	 */
-	public ArrayList<Patient> getPatientsWithHeightAndWeight(
-			String regex) throws OHServiceException 
+	public ArrayList<Patient> getPatientsWithHeightAndWeight(String regex) throws OHServiceException
 	{
-		ArrayList<Integer> pPatientCode = null;
+		ArrayList<Integer> pPatientCode;
 		ArrayList<Patient> pPatient = new ArrayList<Patient>();
-		
-		
-		pPatientCode = new ArrayList<Integer>(repository.findAllByHeightAndWeight(regex));			
+		pPatientCode = new ArrayList<Integer>(repository.findAllByHeightAndWeight(regex));
 		for (int i=0; i<pPatientCode.size(); i++)
 		{
 			Integer code = pPatientCode.get(i);
 			Patient patient = repository.findOne(code);
-			
-			
 			pPatient.add(i, patient);
 		}
 					
@@ -109,10 +94,9 @@ public class PatientIoOperations
 	 * @return the Patient that match specified name
 	 * @throws OHServiceException
 	 */
-	public Patient getPatient(
-			String name) throws OHServiceException 
+	public Patient getPatient(String name) throws OHServiceException
 	{
-		ArrayList<Patient> pPatient = null;
+		ArrayList<Patient> pPatient;
 		Patient patient = null;	
 		
 		
@@ -132,8 +116,7 @@ public class PatientIoOperations
 	 * @return the Patient
 	 * @throws OHServiceException
 	 */
-	public Patient getPatient(
-			Integer code) throws OHServiceException 
+	public Patient getPatient(Integer code) throws OHServiceException
 	{
 		ArrayList<Patient> pPatient = null;
 		Patient patient = null;	
@@ -253,8 +236,7 @@ public class PatientIoOperations
 	 * @return true - if the Patient has been deleted (logically)
 	 * @throws OHServiceException
 	 */
-	public boolean deletePatient(
-			Patient patient) throws OHServiceException 
+	public boolean deletePatient(Patient patient) throws OHServiceException
 	{
 		boolean result = false;
 		int updates = 0;

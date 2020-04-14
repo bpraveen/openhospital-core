@@ -11,7 +11,6 @@ import org.isf.sms.model.Sms;
 import org.isf.utils.db.TranslateOHServiceException;
 import org.isf.utils.exception.OHServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,34 +37,20 @@ public class SmsOperations {
 	 * @return <code>true</code> if data has been saved, <code>false</code> otherwise. 
 	 * @throws OHServiceException 
 	 */
-	public boolean saveOrUpdate(
-			Sms sms) throws OHServiceException 
+	public boolean saveOrUpdate(final Sms sms) throws OHServiceException
 	{
-		boolean result = true;
-	
-
-		Sms savedSms = repository.save(sms);
-		result = (savedSms != null);
-		
-		return result;
+		final Sms savedSms = repository.save(sms);
+		return (savedSms != null);
 	}
 	
 	/**
 	 * Save or Update a list of {@link Sms}s
 	 * @param smsList - the list of {@link Sms} to save or update
-	 * @return <code>true</code> if data has been saved, <code>false</code> otherwise. 
-	 * @throws OHServiceException 
+	 * @return <code>true</code> if data has been saved, <code>false</code> otherwise.
 	 */
-	public boolean saveOrUpdate(
-			List<Sms> smsList) throws OHServiceException 
-	{
-		boolean result = true;
-	
-
-		List<Sms> savedSms = repository.save(smsList);
-		result = (savedSms != null);
-		
-		return result;
+	public boolean saveOrUpdate(final List<Sms> smsList) {
+		final List<Sms> savedSms = repository.save(smsList);
+		return (savedSms != null);
 	}
 	
 	/**
@@ -74,12 +59,9 @@ public class SmsOperations {
 	 * @return sms - the sms with specified ID
 	 * @throws OHServiceException 
 	 */
-	public Sms getByID(
-			int ID) throws OHServiceException 
+	public Sms getByID(final int ID) throws OHServiceException
 	{
-		Sms foundSms = repository.findOne(ID);
-
-        return foundSms;
+		return repository.findOne(ID);
 	}
 	
 	/**
@@ -87,13 +69,9 @@ public class SmsOperations {
 	 * @return smsList - the list of {@link Sms}s
 	 * @throws OHServiceException 
 	 */
-	public List<Sms> getAll(
-			Date dateFrom, 
-			Date dateTo) throws OHServiceException 
-	{		
-		ArrayList<Sms> smsList = new ArrayList<Sms>(repository.findAllWhereBetweenDatesByOrderDate(dateFrom, dateTo));
-		
-		return smsList;
+	public List<Sms> getAll(final Date dateFrom, final Date dateTo) throws OHServiceException
+	{
+		return new ArrayList<Sms>(repository.findAllWhereBetweenDatesByOrderDate(dateFrom, dateTo));
 	}
 	
 	/**
@@ -101,13 +79,9 @@ public class SmsOperations {
 	 * @return smsList - the list of {@link Sms}s
 	 * @throws OHServiceException 
 	 */
-	public List<Sms> getList(
-			Date dateFrom, 
-			Date dateTo) throws OHServiceException 
+	public List<Sms> getList(final Date dateFrom,final Date dateTo) throws OHServiceException
 	{
-		ArrayList<Sms> smsList = new ArrayList<Sms>(repository.findAllWhereSentNotNullBetweenDatesByOrderDate(dateFrom, dateTo));
-		
-		return smsList;
+		return new ArrayList<Sms>(repository.findAllWhereSentNotNullBetweenDatesByOrderDate(dateFrom, dateTo));
 	}
 	
 	/**
@@ -117,22 +91,18 @@ public class SmsOperations {
 	 */
 	public List<Sms> getList() throws OHServiceException 
 	{
-		ArrayList<Sms> smsList = new ArrayList<Sms>(repository.findAllWhereSentNotNullByOrderDate());
-		
-		return smsList;
+		return new ArrayList<Sms>(repository.findAllWhereSentNotNullByOrderDate());
 	}
 	
 	/**
 	 * Delete the specified {@link Sms}
 	 * @param sms - the {@link Sms}s to delete
-	 * @throws OHServiceException 
+	 * @throws OHServiceException
+	 * @return
 	 */
-	public void delete(
-			Sms sms) throws OHServiceException 
+	public void delete(final Sms sms) throws OHServiceException
 	{		
 		repository.delete(sms);
-		
-		return;	
 	}
 
 	/**
@@ -140,12 +110,13 @@ public class SmsOperations {
 	 * @param smsList - the list of {@link Sms}s to delete
 	 * @throws OHServiceException 
 	 */
-	public void delete(
-			List<Sms> smsList) throws OHServiceException 
+	public void delete(final List<Sms> smsList) throws OHServiceException
 	{		
 		repository.delete(smsList);
-		
-		return;	
+	}
+
+	public int deleteById(final int id) throws OHServiceException{
+		return repository.deleteById(String.valueOf(id));
 	}
 
 	/**
@@ -154,14 +125,9 @@ public class SmsOperations {
 	 * @param moduleID - the module ID within its generated {@link Sms}s
 	 * @throws OHServiceException 
 	 */
-	public void deleteByModuleModuleID(
-			String module, 
-			String moduleID) throws OHServiceException 
+	public void deleteByModuleModuleID(final String module, final String moduleID) throws OHServiceException
 	{
-
-		repository.deleteWhereModuleAndId(module, moduleID);	
-		
-        return;
+		repository.deleteWhereModuleAndId(module, moduleID);
 	}
 
 	/**
@@ -171,14 +137,8 @@ public class SmsOperations {
 	 * @return <code>true</code> if the code is already in use, <code>false</code> otherwise
 	 * @throws OHServiceException 
 	 */
-	public boolean isCodePresent(
-			Integer code) throws OHServiceException
+	public boolean isCodePresent(final Integer code) throws OHServiceException
 	{
-		boolean result = true;
-	
-		
-		result = repository.exists(code);
-		
-		return result;	
+		return repository.exists(code);
 	}
 }
